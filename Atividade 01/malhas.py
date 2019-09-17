@@ -1,3 +1,10 @@
+# <>=================================<>
+# ||\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\||
+# ||        Armstrong Lohãns         ||
+# ||    Computação Gráfica 2019.2    ||
+# ||\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\||
+# <>=================================<>
+
 def abrirArquivo(nomeArquivo):
     arquivo = open(nomeArquivo, 'r')
     return arquivo
@@ -40,25 +47,38 @@ def listarFaces(arquivo, numFaces):
         linha = arquivo.readline()
         linha = linha.split()
         lista = converterInt(linha)
-        listaDeFaces.append(lista[1:lista[0]+1])
+        listaDeFaces.append(lista[1:lista[0] + 1])
 
     return listaDeFaces
 
 
-nomeArquivo = 'hand-hybrid.off'
-arquivo = abrirArquivo(nomeArquivo)
-listaDeLinhas = arquivo.readlines()  # Ler todas as linhas do arquivo
-numPontos, numFaces = qtdPontosFaces(listaDeLinhas)
+nomeArquivo = input("Digite o nome do arquivo: ")
 
-arquivo.seek(0)  # Zerando o método readlines
+try:
+    arquivo = abrirArquivo(nomeArquivo)
+    listaDeLinhas = arquivo.readlines()  # Ler todas as linhas do arquivo e guarda numa lista
+    numPontos, numFaces = qtdPontosFaces(listaDeLinhas)  # Obtendo numero de pontos e faces
 
-linha = arquivo.readline()
-linha = arquivo.readline()
+    arquivo.seek(0)  # Zerando o método readlines
 
-print(numPontos, numFaces)
+    linha = arquivo.readline()  # Ignorando a primeria linha do arquivo
+    linha = arquivo.readline()  # Ignorando a segunda linha do arquivo
 
-listaDePontos = listarPontos(arquivo, numPontos)
-listaDeFaces = listarFaces(arquivo, numFaces)
+    listaDePontos = listarPontos(arquivo, numPontos)  # Gerando lista de pontos
+    listaDeFaces = listarFaces(arquivo, numFaces)  # Gerando lista de faces
 
-print(listaDePontos)
-print(listaDeFaces)
+    print("\n")
+    print("Arquivo:", nomeArquivo, "/", "Número de pontos:", numPontos, "/ Número de faces: ", numFaces)
+    print("\n")
+
+    print("Lista de pontos:\n")
+    for indice in range(len(listaDePontos)):
+        print(listaDePontos[indice])
+
+    print("\n")
+
+    print("Lista de faces:\n")
+    for indice in range(len(listaDeFaces)):
+        print(listaDeFaces[indice])
+except IOError:
+    print("Arquivo incorreto!")
