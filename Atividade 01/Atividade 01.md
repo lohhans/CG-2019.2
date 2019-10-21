@@ -1,4 +1,4 @@
-Caros alunos,
+# Caros alunos
 
 Como mencionei na aula de ontem, o primeiro trabalho da disciplina será a implementação de uma estrutura de dados do tipo Face-Vértice (dos slides em anexo).
 
