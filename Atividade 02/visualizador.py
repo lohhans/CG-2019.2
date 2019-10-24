@@ -5,6 +5,8 @@
 # ||\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\||
 # <>=================================<>
 
+# Use Python2
+
 import malhas
 
 import OpenGL
@@ -17,19 +19,26 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from malhas import *
 
-w, h = 500, 500
+w, h, escala = 600, 600, 500
+
 
 def visualizar():
-    for numero in expression_list:
-        pass
+    for face in listaDeFaces:
+        tamFace = len(face)
 
-    if condition:
-        pass
-    else:
-        pass
-    glBegin(GL_TRIANGLES)
+        if tamFace == 3:
+            glBegin(GL_TRIANGLES)
+        elif tamFace == 4:
+            glBegin(GL_QUADS)
+        else:
+            print('erro')
+            exit()
 
-    glEnd()
+        for i in face:
+            glVertex3f(listaDePontos[i][0]*escala, listaDePontos[i]
+                       [1]*escala, listaDePontos[i][2]*escala)
+
+        glEnd()
 
 
 def iterate():
@@ -45,7 +54,7 @@ def showScreen():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
     iterate()
-    glColor3f(1.0, 0.0, 3.0)
+    glColor3f(0.0, 1.0, 0.0)
     visualizar()
     glutSwapBuffers()
 
@@ -53,18 +62,16 @@ def showScreen():
 nomeArquivo = raw_input("Digite o nome do arquivo: ")
 
 try:
-    numPontos, numFaces, listaDePontos, listaDeFaces, listaDeFormaDeFaces = malhas.iniciarLeitura(
+    numPontos, numFaces, listaDePontos, listaDeFaces = malhas.iniciarLeitura(
         nomeArquivo)
-    print(listaDeFormaDeFaces)
-    print(numPontos, numFaces)
 except IOError:
     print("Arquivo incorreto!")
 
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
-glutInitWindowSize(500, 500)
+glutInitWindowSize(w, h)
 glutInitWindowPosition(0, 0)
-wind = glutCreateWindow("OpenGL Coding Practice")
+wind = glutCreateWindow("Visualizador de pontos - Armstrong")
 glutDisplayFunc(showScreen)
 glutIdleFunc(showScreen)
 glutMainLoop()
