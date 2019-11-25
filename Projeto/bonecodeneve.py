@@ -74,6 +74,31 @@ def display():
     # Limpa e habilita os buffers para gravacao de cores e profundidades
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
+    # Chão invertido
+    glPushMatrix()
+    glRotate(180, 1, 0, 0)
+    glBegin(GL_POLYGON)
+    glColor3b(51, 51, 51)
+    glNormal3f(0.0, -1.0, 0.0)
+    glVertex3f(  5, 0.15, -5 )
+    glVertex3f(  5, 0.15,  5 )
+    glVertex3f( -5, 0.15,  5 )
+    glVertex3f( -5, 0.15, -5 )
+    glEnd()
+    glPopMatrix()
+
+    # Chão normal
+    glPushMatrix()
+    glBegin(GL_POLYGON)
+    glColor3b(51, 51, 51)
+    glNormal3f(0.0, 1.0, 0.0)
+    glVertex3f(  5, -0.15, -5 )
+    glVertex3f(  5, -0.15,  5 )
+    glVertex3f( -5, -0.15,  5 )
+    glVertex3f( -5, -0.15, -5 )
+    glEnd()
+    glPopMatrix()
+
     # Empurra a pilha de matriz atual para baixo
     glPushMatrix()
 
